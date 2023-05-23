@@ -1,0 +1,145 @@
+/*
+Name - Manish Tulsiani
+Roll No - 37
+Course - MCA-2
+Subject - Operating Systems
+Assignment - Practical Assignment-2
+****************************************************************************************************************************************
+Question 9 : The book master file contains the fields book_no, book_name, author,# dateofpurchase, each field is separated by hypen. Write a script for
+(A) Add
+(B) Modify
+(C) Delete
+from above file
+*/
+
+add_record() {
+    echo -n "Enter book no: "
+    read book_no
+    echo -n "Enter book name: "
+    read book_name
+    echo -n "Enter author: "
+    read author
+    echo -n "Enter date of purchase (yyyy-mm-dd): "
+    read dateofpurchase
+
+    echo "$book_no-$book_name-$author-$dateofpurchase" >> master_file.txt
+
+    echo "Record added successfully!"
+}
+
+modify_record() {
+    echo -n "Enter book no to modify: "
+    read book_no
+    line_num=$(grep -n "^$book_no-" master_file.txt | cut -d ":" -f 1)
+
+    if [ -z "$line_num" ]
+    then
+        echo "Record not found!"
+    else
+        echo -n "Enter new book name (press enter to keep existing value): "
+        read new_book_name
+        echo -n "Enter new author (press enter to keep existing value): "
+        read new_author
+        echo -n "Enter new date of purchase (yyyy-mm-dd) (press enter to keep existing value): "
+        read new_dateofpurchase
+
+        sed -i "${line_num}s/[^-]*/$new_book_name/2" master_file.txt
+        sed -i "${line_num}s/[^-]*/$new_author/3" master_file.txt
+        sed -i "${line_num}s/[^-]*/$new_dateofpurchase/4" master_file.txt
+
+        echo "Record modified successfully!"
+    fi
+}
+
+delete_record() {
+    echo -n "Enter book no to delete: "
+    read book_no
+    line_num=$(grep -n "^$book_no-" master_file.txt | cut -d ":" -f 1)
+
+    if [ -z "$line_num" ]
+    then
+        echo "Record not found!"
+    else
+        sed -i "${line_num}d" master_file.txt
+
+        echo "Record deleted successfully!"
+    fi
+}
+
+while true
+do
+    echo "1. Add record"
+    echo "2. Modify record"
+    echo "3. Delete record"
+    echo "4. Exit"
+    echo -n "Select an option: "
+    read choice
+
+    case $choice in
+        1)
+            add_record
+            ;;
+        2)
+            modify_record
+            ;;
+        3)
+            delete_record
+            ;;
+        4)
+            exit 0
+            ;;
+        *)
+            echo "Invalid choice!"
+            ;;
+    esac
+
+done
+
+/*
+****************************************************************************************************************************************
+OUTPUT:-
+
+1. Add record
+2. Modify record
+3. Delete record
+4. Exit
+Select an option: 1
+Enter book no: 100
+Enter book name: C++ Learning
+Enter author: Bhushan Trivedi
+Enter date of purchase (yyyy-mm-dd): 2023-04-10
+Record added successfully!
+1. Add record
+2. Modify record
+3. Delete record
+4. Exit
+Select an option: 1
+Enter book no: 101
+Enter book name: Beginner Guide to Java
+Enter author: Ivar Horton
+Enter date of purchase (yyyy-mm-dd): 2023-03-08
+Record added successfully!
+1. Add record
+2. Modify record
+3. Delete record
+4. Exit
+Select an option: 2
+Enter book no to modify: 101
+Enter new book name (press enter to keep existing value): Advanced Guide to Java
+Enter new author (press enter to keep existing value): Pravin Gupta
+Enter new date of purchase (yyyy-mm-dd) (press enter to keep existing value): 2023-02-08
+Record modified successfully!
+1. Add record
+2. Modify record
+3. Delete record
+4. Exit
+Select an option: 3
+Enter book no to delete: 100
+Record deleted successfully!
+1. Add record
+2. Modify record
+3. Delete record
+4. Exit
+Select an option: 4
+
+*/

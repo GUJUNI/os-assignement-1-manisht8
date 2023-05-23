@@ -1,0 +1,24 @@
+/*
+Name - Manish Tulsiani
+Roll No - 37
+Course - MCA-2
+Subject - Operating Systems
+Assignment - Practical Assignment-2
+****************************************************************************************************************************************
+Question 11 : Write a script to count number of vowels in file irrespective of case
+*/
+
+vowels=('a' 'e' 'i' 'o' 'u' 'A' 'E' 'I' 'O' 'U')
+echo -n "Enter Filename : "
+read file
+count=$(grep -oi '[aeiou]' $file | wc -l)
+echo "File $file Contains $count Vowels"
+
+/*
+****************************************************************************************************************************************
+OUTPUT:-
+
+Enter Filename : demo5
+File demo5 Contains 10 Vowels
+
+*/

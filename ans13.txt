@@ -1,0 +1,29 @@
+/*
+Name - Manish Tulsiani
+Roll No - 37
+Course - MCA-2
+Subject - Operating Systems
+Assignment - Practical Assignment-2
+****************************************************************************************************************************************
+Question 13 : Create a text file with the headings and data as bill_no, cust_no, cust_name, address, city, pin, current_meter_reading previous_meter_reading, month. Write a script that takes the input from this file and displays the bill for the query against cust_no/bill_no cust_name (input at least 15/20 records in this text file); otherwise message that no record exists.
+*/
+
+echo -n "Enter query (cust_no/bill_no/cust_name): "
+read query
+result=$(grep -i "$query" bill_data)
+if [ -z "$result" ]; then
+  echo "No record exists!"
+else
+  echo "Bill information for $query: "
+  echo "$result"
+fi
+
+/*
+****************************************************************************************************************************************
+OUTPUT:-
+
+Enter query (cust_no/bill_no/cust_name): rakshit
+Bill information for rakshit:
+1010,110,Rakshit,Sai Apartments,Ajmer,305001,1100,1000,April
+
+*/

@@ -1,0 +1,60 @@
+/*
+Name - Manish Tulsiani
+Roll No - 37
+Course - MCA-2
+Subject - Operating Systems
+Assignment - Practical Assignment-2
+****************************************************************************************************************************************
+Question 15 : Write a shell script to generate summary from a file : "student.dat" with following format :
+Student_no : student_name : gender : marks1 : marks2 : marks3
+Each field must be separated by a delimeter '-'
+Process the following queries:
+1. Calculate the total marks of each student
+2. Calculate the percentage of marks for each student
+3. Count the total number of male and female students
+4. Count the total number of students who pass and those who fail.
+*/
+
+total_marks=0
+percentage=0.0
+male_count=0
+female_count=0
+pass_count=0
+fail_count=0
+while IFS='-' read -r student_no student_name gender marks1 marks2 marks3;
+do
+  total_marks=$(($marks1 + $marks2 + $marks3))
+  percentage=$(echo "scale=2; ($total_marks / 3)" | bc)
+  if [ "$gender" = "Male" ]; then
+    male_count=$((male_count+1))
+  fi
+  if [ "$gender" = "Female" ]; then
+    female_count=$((female_count+1))
+  fi
+  if (( $(echo "$percentage > 40" | bc -l) )); then   # check if percentage is greater than 40
+    pass_count=$((pass_count + 1))                  # increment pass count
+  else
+    fail_count=$((fail_count+1))
+  fi
+  echo "$student_no-$student_name-$gender-$marks1-$marks2-$marks3---$total_marks---$percentage"
+done < student.dat
+echo "Male Count: $male_count"
+echo "Female Count: $female_count"
+echo "Pass Count: $pass_count"
+echo "Fail Count: $fail_count"
+
+/*
+****************************************************************************************************************************************
+OUTPUT:-
+
+101-Manish-Male-70-80-90---240---80.00
+102-Rohit-Male-50-30-25---105---35.00
+103-Khushi-Female-90-95-85---270---90.00
+104-Ruchit-Male-65-75-85---225---75.00
+105-Yash-Male-75-82-73---230---76.66
+Male Count: 4
+Female Count: 1
+Pass Count: 4
+Fail Count: 1
+
+*/

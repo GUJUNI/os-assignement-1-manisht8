@@ -1,0 +1,37 @@
+/*
+Name - Manish Tulsiani
+Roll No - 37
+Course - MCA-2
+Subject - Operating Systems
+Assignment - Practical Assignment-2
+****************************************************************************************************************************************
+Question 10 : Write a shell script to display list of files which can be either regular or directory along with number of links in ascending order of links
+*/
+
+echo "File/Directory Name | Number of Links :- "
+ls -l | awk '{print $2,$NF}' | sort -n | awk '{print $2, "\t\t", $1}'
+
+/*
+****************************************************************************************************************************************
+OUTPUT:-
+
+File/Directory Name | Number of Links :-
+demo1            1
+demo2            1
+demo3            1
+demo4            1
+demo5            1
+master_file.txt                  1
+q10.sh           1
+q1.sh            1
+q2.sh            1
+q3.sh            1
+q4.sh            1
+q5.sh            1
+q6.sh            1
+q7.sh            1
+q8.sh            1
+q9.sh            1
+64               64
+
+*/
